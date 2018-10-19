@@ -6,14 +6,14 @@
 - The data for this project was provided by Kaggle.com, and is a exact copy of the data provided in the famous Netflix prize data. The review data comes in at around two and a half gigabytes, with over one hundred million individual reviews. For each review, the data, movie, and user_id are provided. There are over four hundred and fifty thousand unique users, and over seventeen thousand movies. There is also another data frame provided, which contains movie titles, the movie id from the user review data frames, and the date of the movie release. The data can be found at https://www.kaggle.com/netflix-inc/netflix-prize-data. For this project, I used the movie_titles.csv, and the combined_data.txt 1-4.
 ## Process:
 ### Preprocessing:
--The data as provided was unable to be processed, due to improper format, so the poper steps had to be taken in order to format it so that the proper methods could be applied to the data. 
+-The data as provided was unable to be processed, due to improper format, so the poper steps had to be taken in order to format it so that the proper methods could be applied to the data.
 - Beacuse the data is so large, and there are many users who do not have many reviews, this notebook also drops users that have less than a certain number of reviews, as well as dropping movies that do not have over a certain number of reviews.
 - In addition to properly formatting the data, this notebook also removed indiduvial 'bias' from their reviews, as well as the bias each movie may have. Subtracting the mean of all the reviews from a single users from each of their rating. The same process is then repeated, except the mean of all the reviews of a single movie are then subtracted from all reviews of that particular movie. This notebook also uploads the resultant dataframe into a postgreSQL server, which is being hosted on a AWS EC2 instance.
 -NOTE: Because of the size of the data, this notebook may take a long time to run. For my personal computer, with eight gigabytes of RAM, it takes 4 minutes to run through the whole notebook, and 2 minutes to upload the resulting dataframe to a postgreSQL server.
 ### EDA:
 - The goal of this notebook is to visually examine the user review data
-
-### Cosine Similarity: 
+![alt text](https://github.com/matthewkparker/Capstone/blob/master/Images/Ratings.png)
+### Cosine Similarity:
 - This is where the actual 'recommending' happens. The first step involves pulling all of the data that was preprocessed from the postgreSQL server. From there, a cosine similarity matrix is created for a single specified user against all other users. What this means is that for an individual user, their reviews are transformed into a vector, compares that users vector to all of the other users vectors, and calculated the cosine of the angle between the two. the result is a scale from 0 to 1, where a 1 indicated that two users have the exact same reviews, and a 0 indicating that they have no review data in common
 - after seeing which users are the most similar to the user that is being queried, a function then pulls all of the reviews of the similar users, see's which ones have a high review score, and then returns the movies that similar users rated highly.
 ## Moving Forward:
