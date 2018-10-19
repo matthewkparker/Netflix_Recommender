@@ -12,6 +12,7 @@
 -NOTE: Because of the size of the data, this notebook may take a long time to run. For my personal computer, with eight gigabytes of RAM, it takes 4 minutes to run through the whole notebook, and 2 minutes to upload the resulting dataframe to a postgreSQL server.
 ### EDA:
 - The goal of this notebook is to visually examine the user review data
+
 ### Cosine Similarity: 
 - This is where the actual 'recommending' happens. The first step involves pulling all of the data that was preprocessed from the postgreSQL server. From there, a cosine similarity matrix is created for a single specified user against all other users. What this means is that for an individual user, their reviews are transformed into a vector, compares that users vector to all of the other users vectors, and calculated the cosine of the angle between the two. the result is a scale from 0 to 1, where a 1 indicated that two users have the exact same reviews, and a 0 indicating that they have no review data in common
 - after seeing which users are the most similar to the user that is being queried, a function then pulls all of the reviews of the similar users, see's which ones have a high review score, and then returns the movies that similar users rated highly.
